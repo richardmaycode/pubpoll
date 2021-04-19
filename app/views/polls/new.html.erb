@@ -1,0 +1,33 @@
+<h1>Create Poll</h1>
+<%= form_with(model: @poll, data: { controller: "nested-form"}) do |f| %>
+  <% if @poll.errors.any? %>
+    <p>The following issues prevented the poll from being saved:</p>
+    <ul>
+      <% @poll.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <template data-nested-form-target="template">
+    <%= f.fields_for :choices, Choice.new, child_index: "NEW_RECORD" do |choice_fields| %>
+      <%= render partial: "choices/choice_form", locals: { f: choice_fields } %>
+    <% end %>
+  </template>
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title %>
+<br>
+  <%= f.label :email, "Email Address" %>
+  <%= f.text_field :email %>
+<br>
+<div class="nested-form-fields">
+  <%= f.fields_for :choices do |ff| %>
+    <%= render partial: "choices/choice_form", locals: { f: ff } %>
+  <% end %>
+  <div data-nested-form-target="target"></div>
+</div>
+
+  <br>
+
+  <button data-action="nested-form#add">Add</button>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,17 @@
+<%= link_to "back", polls_path %>
+<h1>Polls#show</h1>
+<p>Find me in app/views/polls/show.html.erb</p>
+<h2><%= @poll.title %></h2>
+
+  <ul>
+    <% @poll.choices.each do |choice| %>
+    <li><%= choice.title %></li>
+    <% end %>
+  </ul>
+
+<div data-controller="clipboard">
+  <%= label_tag :link_to_poll, "Link to Your Poll" %>
+  <%= text_field_tag :slug, poll_url(@poll), data: { "clipboard-target": "source" }, style: "width: 200px;" %>
+  <button data-action="clipboard#copy">Copy to Clipboard</button>
+</div>
+
