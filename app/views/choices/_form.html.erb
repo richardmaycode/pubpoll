@@ -1,0 +1,11 @@
+<%= form_with(model: [@poll, @choice], id: "choice_form", data: { controller: "form", action: "turbo:submit-end->form#reset"}) do |f| %>
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :url, "URL" %>
+  <%= f.text_field :url %>
+  <br>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.submit @choice.new_record? ? "Create choice" : "Update choice", data: { "form-target": "submitbtn" } %>
+<% end %>

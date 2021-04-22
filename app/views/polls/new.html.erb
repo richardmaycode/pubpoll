@@ -19,6 +19,9 @@
   <%= f.label :email, "Email Address" %>
   <%= f.text_field :email %>
 <br>
+  <%= f.label :content %>
+  <%= f.rich_text_area :content %>
+<br>
 <div class="nested-form-fields">
   <%= f.fields_for :choices do |ff| %>
     <%= render partial: "choices/choice_form", locals: { f: ff } %>

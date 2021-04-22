@@ -1,6 +1,7 @@
 class Poll < ApplicationRecord
   extend FriendlyId
   friendly_id :slug
+  has_rich_text :content
 
   has_many :choices, dependent: :destroy, inverse_of: :poll
 
@@ -8,7 +9,8 @@ class Poll < ApplicationRecord
 
   validates :title, presence: true
   validates :email, presence: true
-  validates :choices, length: { minimum: 2, message: "are required. Please include at least 2 choices." }
+  validates :choices, length: {minimum: 2, message: "are required. Please include at least 2 choices."}
+
   before_create :setup_poll
 
   def setup_poll

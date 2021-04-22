@@ -1,22 +1,23 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: %i[show settings]
+  before_action :set_poll, only: %i[show settings private update]
 
   def index
     @polls = Poll.all
   end
 
-  def show; end
+  def show
+  end
 
   def new
     @poll = Poll.new
-    2.times{ @poll.choices.build } 
+    2.times { @poll.choices.build }
   end
 
   def create
     @poll = Poll.create(poll_params)
 
     if @poll.save
-      redirect_to poll_path(@poll), success: "Poll created!"
+      redirect_to private_poll_path(@poll), success: "Poll created!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,11 +35,25 @@ class PollsController < ApplicationController
     end
   end
 
-  def settings; end
+  def update
+    if @poll.update(poll_params)
+      redirect_to poll_path(@poll)
+    else
+      render :edit
+    end
+  end
 
-  def search; end
+  def settings
+  end
 
-  def lookup; end
+  def search
+  end
+
+  def lookup
+  end
+
+  def private
+  end
 
   private
 
@@ -47,6 +62,6 @@ class PollsController < ApplicationController
   end
 
   def poll_params
-    params.require(:poll).permit(:title, :email, choices_attributes: [:title, :url, :_destroy])
+    params.require(:poll).permit(:title, :email, :allow_recommendations, :allow_sharing, :discoverable, :published, choices_attributes: [:title, :url, :content, :_destroy])
   end
 end

@@ -9,9 +9,5 @@
     <% end %>
   </ul>
 
-<div data-controller="clipboard">
-  <%= label_tag :link_to_poll, "Link to Your Poll" %>
-  <%= text_field_tag :slug, poll_url(@poll), data: { "clipboard-target": "source" }, style: "width: 200px;" %>
-  <button data-action="clipboard#copy">Copy to Clipboard</button>
-</div>
+<%= render(ShareCardComponent.new(title: "Share your Poll!", subtitle: "Anyone with this link will be able to vote on your poll.", url: poll_url(@poll), button_text: "Copy to Clipboard")) %>
 

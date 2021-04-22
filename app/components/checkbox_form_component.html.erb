@@ -1,0 +1,6 @@
+<%= form_with(model: @object, data: { controller: "form", remote: true }) do |f| %>
+  <%= f.label @field do %>
+    <%= f.check_box @field, data: { action: "form#submit"} %>
+    <%= @label %>
+  <% end %>
+<% end %>
