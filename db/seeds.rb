@@ -9,7 +9,7 @@
 polls = ["Where should I go on vacation"]
 
 polls.each do |p|
-  poll = Poll.new(title: p, email: "test", content: Faker::Lorem.sentence(word_count: 25))
+  poll = Poll.new(title: p, content: Faker::Lorem.sentence(word_count: 25))
   5.times do |i|
     poll.choices.build(title: Faker::Address.country, url: "https://google.com", content: Faker::Lorem.sentence(word_count: 10))
   end

@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
 
   create_table "polls", force: :cascade do |t|
     t.string "title", null: false
-    t.string "email", null: false
+    t.string "email"
     t.string "access_token", null: false
     t.string "slug", null: false
     t.boolean "allow_recommendations", default: false, null: false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
     t.boolean "allow_sharing", default: false, null: false
     t.boolean "discoverable", default: false, null: false
     t.boolean "published", default: false, null: false
+    t.datetime "claimed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["slug"], name: "index_polls_on_slug"
