@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
     t.boolean "allow_comments", default: false, null: false
     t.boolean "allow_sharing", default: false, null: false
     t.boolean "discoverable", default: false, null: false
-    t.boolean "published", default: false, null: false
+    t.boolean "published", default: true, null: false
     t.datetime "claimed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
