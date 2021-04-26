@@ -2,6 +2,6 @@
 <%= content_tag :div, data: { controller: "clipboard" } do %>
   <%= content_tag :h4, @title %>
   <%= content_tag :p, @subtitle unless @subtitle.blank? %>
-  <%= text_field_tag :url, @url, data: { "clipboard-target": "source" } %>
+  <%= text_field_tag :url, poll_url(@poll), data: { "clipboard-target": "source" } %>
   <%= button_tag @button_text, data: { action: "clipboard#copy"} %>
 <% end %>

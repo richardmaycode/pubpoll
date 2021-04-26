@@ -8,7 +8,4 @@ class ShareCardComponent < ViewComponent::Base
     @button_text = button_text
   end
 
-  def render?
-    @poll.published?
-  end
 end

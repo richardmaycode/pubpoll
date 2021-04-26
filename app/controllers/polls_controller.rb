@@ -1,5 +1,5 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: %i[show settings private update]
+  before_action :set_poll, only: %i[show settings private update success]
 
   def index
     @polls = Poll.all
@@ -55,6 +55,8 @@ class PollsController < ApplicationController
   def private
   end
 
+  def success
+  end
   private
 
   def set_poll
