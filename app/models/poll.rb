@@ -37,6 +37,7 @@ class Poll < ApplicationRecord
   ## 1. ASSOCIATIONS /ATTRIBUTES
   belongs_to :claimant, optional: true
   has_many :choices, dependent: :destroy, inverse_of: :poll
+  has_many :votes, through: :choices
 
   accepts_nested_attributes_for :choices, allow_destroy: true
 

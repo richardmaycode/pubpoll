@@ -1,0 +1,9 @@
+<%= content_tag :h1, "Success! Your vote has been cast." %>
+
+<%= content_tag :article do %>
+  <%= content_tag :h2, "Your Choice" %>
+  <%= content_tag :p, @vote.choice.title %>
+
+  <%= content_tag :h2, "In response to" %>
+  <%= content_tag :p, @poll.title %>
+<% end %>

@@ -20,6 +20,7 @@
 #
 class Choice < ApplicationRecord
   belongs_to :poll, inverse_of: :choices
-
+  has_many :votes
+  
   validates :title, presence: true
 end

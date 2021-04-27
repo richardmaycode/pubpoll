@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "new_vote" do %>
+  <%= form_with(model: [@poll, @vote]) do |f| %>
+
+
+    <%= f.collection_radio_buttons :choice_id, @poll.choices, :id, :title %>
+
+    <%= f.submit %>
+  <% end %>
+<% end %>

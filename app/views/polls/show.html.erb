@@ -9,5 +9,4 @@
     <% end %>
   </ul>
 
-<%= render(ShareCardComponent.new(title: "Share your Poll!", subtitle: "Anyone with this link will be able to vote on your poll.", url: poll_url(@poll), button_text: "Copy to Clipboard")) %>
-
+<%= turbo_frame_tag "new_vote", src: new_poll_vote_path(@poll), target: "_top" %>

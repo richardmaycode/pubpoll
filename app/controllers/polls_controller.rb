@@ -17,7 +17,7 @@ class PollsController < ApplicationController
     @poll = Poll.create(poll_params)
 
     if @poll.save
-      redirect_to private_poll_path(@poll), success: "Poll created!"
+      redirect_to success_poll_path(@poll), success: "Poll created!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -65,6 +65,6 @@ class PollsController < ApplicationController
   end
 
   def poll_params
-    params.require(:poll).permit(:title, :email, :allow_recommendations, :allow_sharing, :discoverable, :published, choices_attributes: [:title, :url, :content, :_destroy])
+    params.require(:poll).permit(:title, :content, :allow_recommendations, :allow_sharing, :discoverable, :published, choices_attributes: [:title, :url, :content, :_destroy])
   end
 end
