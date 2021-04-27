@@ -63,6 +63,12 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
     t.index ["poll_id"], name: "index_choices_on_poll_id"
   end
 
+  create_table "claimants", force: :cascade do |t|
+    t.string "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -76,7 +82,6 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
 
   create_table "polls", force: :cascade do |t|
     t.string "title", null: false
-    t.string "email"
     t.string "access_token", null: false
     t.string "slug", null: false
     t.boolean "allow_recommendations", default: false, null: false
@@ -84,13 +89,16 @@ ActiveRecord::Schema.define(version: 2021_04_18_184313) do
     t.boolean "allow_sharing", default: false, null: false
     t.boolean "discoverable", default: false, null: false
     t.boolean "published", default: true, null: false
+    t.bigint "claimant_id"
     t.datetime "claimed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["claimant_id"], name: "index_polls_on_claimant_id"
     t.index ["slug"], name: "index_polls_on_slug"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "polls"
+  add_foreign_key "polls", "claimants"
 end

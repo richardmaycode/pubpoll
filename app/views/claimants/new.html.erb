@@ -1,0 +1,13 @@
+<h1>Claimants#new</h1>
+<p>Find me in app/views/claimants/new.html.erb</p>
+
+<%= turbo_frame_tag 'new_claimant' do %>
+  <%= content_tag :h3, "Claim Poll" %>
+  <%= content_tag :p, "If you want to be able to make edits or have outcomes emailed to you add your email address" %>
+  <%= form_with(model: @claimant) do |f| %>
+    <%= hidden_field_tag :poll, @poll.slug %>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    <%= f.submit %>
+  <% end %>
+<% end %>

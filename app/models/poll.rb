@@ -9,16 +9,21 @@
 #  allow_sharing         :boolean          default(FALSE), not null
 #  claimed_at            :datetime
 #  discoverable          :boolean          default(FALSE), not null
-#  email                 :string
 #  published             :boolean          default(TRUE), not null
 #  slug                  :string           not null
 #  title                 :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  claimant_id           :bigint
 #
 # Indexes
 #
-#  index_polls_on_slug  (slug)
+#  index_polls_on_claimant_id  (claimant_id)
+#  index_polls_on_slug         (slug)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (claimant_id => claimants.id)
 #
 class Poll < ApplicationRecord
   ## 0. MODEL EXTENSIONS
@@ -30,6 +35,7 @@ class Poll < ApplicationRecord
 
   # - serialized attributes
   ## 1. ASSOCIATIONS /ATTRIBUTES
+  belongs_to :claimant, optional: true
   has_many :choices, dependent: :destroy, inverse_of: :poll
 
   accepts_nested_attributes_for :choices, allow_destroy: true
@@ -46,12 +52,12 @@ class Poll < ApplicationRecord
 
   ## 4. VALIDATES
   validates :title, presence: true
-  validates :email, format: {with: /[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9\-.]g/, message: "email invalid"}, length: {minimum: 4, maximum: 254}, allow_blank: true
+  # validates :email, format: {with: /[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9\-.]g/, message: "email invalid"}, length: {minimum: 4, maximum: 254}, allow_blank: true
   validates :choices, length: {minimum: 2, message: "are required. Please include at least 2 choices."}
 
   ## 5. CALLBACKS
   before_create :setup_poll
-
+  after_save  :claimant_check
   ## 6. INSTANCE METHODS
   # - first attribues formatting
   # - other methods
@@ -81,5 +87,12 @@ class Poll < ApplicationRecord
     (Faker::Color.color_name + Faker::Ancient.god + Faker::Military.army_rank).delete(" ")
   end
 
+  def claimant_check
+    return unless previous_changes["claimant_id"].present?
+    
+    self.touch(:claimed_at) if claimant_id.present?
+
+    update_column(:claimed_at, nil)
+  end
   # - private methods
 end

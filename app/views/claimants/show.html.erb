@@ -1,0 +1,5 @@
+<h1>Claimants#show</h1>
+<p>Find me in app/views/claimants/show.html.erb</p> 
+<%= turbo_frame_tag dom_id(@claimant) do %>
+  You have successfully claimed this poll! Details will be send to <%= @claimant.email %>
+<% end %>

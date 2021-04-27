@@ -6,11 +6,9 @@
   Choices: <%= @poll.choices.count %>
 <% end %>
 
-<%= content_tag :h3, "Claim Poll" %>
-<%= content_tag :p, "If you want to be able to make edits or have outcomes emailed to you add your email address" %>
-<%= form_with(model: @poll) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+<% if @poll.claimant_id.present? %>
+  <%= turbo_frame_tag dom_id(@poll.claimant), src: claimant_path(@poll.claimant) %>
+<% else %>  
+  <%= turbo_frame_tag "new_claimant", src: new_claimant_path(poll: @poll), target: "_top" %>
 <% end %>
-
 <%= render(ShareCardComponent.new(poll: @poll, title: "Share your Poll!", subtitle: "Anyone with this link will be able to vote on your poll.", button_text: "Copy to Clipboard")) %>

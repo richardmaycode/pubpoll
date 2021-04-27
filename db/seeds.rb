@@ -6,12 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-polls = ["Where should I go on vacation"]
+polls = ["Where should I go on vacation", "Where should I be buried", "Where should I get married", "Where should I go to college"]
 
 polls.each do |p|
   poll = Poll.new(title: p, content: Faker::Lorem.sentence(word_count: 25))
-  5.times do |i|
+  3.times do |i|
     poll.choices.build(title: Faker::Address.country, url: "https://google.com", content: Faker::Lorem.sentence(word_count: 10))
   end
   poll.save
 end
+
+Claimant.create! email: Faker::Internet.email

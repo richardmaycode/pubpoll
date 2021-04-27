@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :polls do
     resources :choices
     member do 
@@ -12,5 +11,7 @@ Rails.application.routes.draw do
       get "lookup"
     end
   end
+
+  resources :claimants, only: %i[show new create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

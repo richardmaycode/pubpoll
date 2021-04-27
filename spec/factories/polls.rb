@@ -9,16 +9,21 @@
 #  allow_sharing         :boolean          default(FALSE), not null
 #  claimed_at            :datetime
 #  discoverable          :boolean          default(FALSE), not null
-#  email                 :string
 #  published             :boolean          default(TRUE), not null
 #  slug                  :string           not null
 #  title                 :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  claimant_id           :bigint
 #
 # Indexes
 #
-#  index_polls_on_slug  (slug)
+#  index_polls_on_claimant_id  (claimant_id)
+#  index_polls_on_slug         (slug)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (claimant_id => claimants.id)
 #
 FactoryBot.define do
   factory :poll do
