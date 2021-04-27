@@ -9,5 +9,6 @@
 #
 class Claimant < ApplicationRecord
   has_many :polls
-  
+
+  validates :email, format: {with: /[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9\-.]g/, message: "email invalid"}, length: {minimum: 4, maximum: 254}
 end

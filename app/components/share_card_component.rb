@@ -7,5 +7,4 @@ class ShareCardComponent < ViewComponent::Base
     @subtitle = subtitle
     @button_text = button_text
   end
-
 end

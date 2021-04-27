@@ -57,6 +57,7 @@ class PollsController < ApplicationController
 
   def success
   end
+
   private
 
   def set_poll

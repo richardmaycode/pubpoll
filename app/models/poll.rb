@@ -52,12 +52,12 @@ class Poll < ApplicationRecord
 
   ## 4. VALIDATES
   validates :title, presence: true
-  # validates :email, format: {with: /[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9\-.]g/, message: "email invalid"}, length: {minimum: 4, maximum: 254}, allow_blank: true
   validates :choices, length: {minimum: 2, message: "are required. Please include at least 2 choices."}
 
   ## 5. CALLBACKS
   before_create :setup_poll
-  after_save  :claimant_check
+  after_save :claimant_check
+
   ## 6. INSTANCE METHODS
   # - first attribues formatting
   # - other methods
@@ -89,8 +89,8 @@ class Poll < ApplicationRecord
 
   def claimant_check
     return unless previous_changes["claimant_id"].present?
-    
-    self.touch(:claimed_at) if claimant_id.present?
+
+    touch(:claimed_at) if claimant_id.present?
 
     update_column(:claimed_at, nil)
   end
