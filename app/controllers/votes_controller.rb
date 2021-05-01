@@ -10,8 +10,12 @@ class VotesController < ApplicationController
   end
 
   def create
-    @vote = Vote.create(vote_params)
-
+    @new_record = false
+    @vote = @poll.votes.find_or_initialize_by(user_identifier: session[:user_identifier]) do |v|
+      @new_record = true
+      v.update(vote_params)
+    end
+    puts "New Record: #{@new_record}"
     if @vote.save
       redirect_to poll_vote_path @poll, @vote
     else
@@ -26,6 +30,6 @@ class VotesController < ApplicationController
   end
 
   def vote_params
-    params.require(:vote).permit(:choice_id)
+    params.require(:vote).permit(:user_identifier, :content, :choice_id)
   end
 end

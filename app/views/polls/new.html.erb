@@ -1,5 +1,5 @@
 <h1>Create Poll</h1>
-<%= form_with(model: @poll, data: { controller: "nested-form"}) do |f| %>
+<%= form_with(model: @poll, data: { controller: "nested-form"}, html: { autocomplete: :off }) do |f| %>
   <% if @poll.errors.any? %>
     <p>The following issues prevented the poll from being saved:</p>
     <ul>
@@ -13,11 +13,15 @@
       <%= render partial: "choices/choice_form", locals: { f: choice_fields } %>
     <% end %>
   </template>
-  <%= f.label :title, "Title" %>
-  <%= f.text_field :title %>
-<br>
-  <%= f.label :content %>
-  <%= f.rich_text_area :content %>
+  <fieldset>
+    <legend>Poll Details</legend>
+    <%= f.label :title, "Title" %><br>
+    <%= f.text_field :title, placeholder: "What kind of car should I buy?", autofocus: true %>
+    <br>
+    <%= f.label :content %><br>
+    <%= f.rich_text_area :content %>  
+  </fieldset>
+
 <br>
 <div class="nested-form-fields">
   <%= f.fields_for :choices do |ff| %>

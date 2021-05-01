@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_174714) do
   end
 
   create_table "votes", force: :cascade do |t|
+    t.string "user_identifier", null: false
     t.bigint "choice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
