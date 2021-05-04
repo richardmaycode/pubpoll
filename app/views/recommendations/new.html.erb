@@ -1,0 +1,16 @@
+<h1>Make a Recommendation</h1>
+<p>Create a recommendation for: <%= @poll.title %></p>
+<%= turbo_frame_tag :new_recommendation do %>
+  <%= form_with(model: [@poll, @recommendation], html: { "aria-label": "Create recommendation for poll" }) do |f| %>
+    <%= f.label :title, "Title" %><br>
+    <%= f.text_field :title, autocomplete: "false" %>
+    <br>
+    <%= f.label :content, "Details" %><br>
+    <%= f.rich_text_area :content %>
+    <br>
+    <%= f.label :url, "URL" %> <br>
+    <%= f.text_field :url %>
+
+    <%= f.submit "Submit", disable_with: 'Submiting...' %>
+  <% end %>
+<% end %>

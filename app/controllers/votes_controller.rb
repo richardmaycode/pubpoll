@@ -10,14 +10,14 @@ class VotesController < ApplicationController
   end
 
   def create
-    @new_record = false
+    new_record = false
     @vote = @poll.votes.find_or_initialize_by(user_identifier: session[:user_identifier]) do |v|
-      @new_record = true
+      new_record = true
       v.update(vote_params)
     end
-    puts "New Record: #{@new_record}"
+
     if @vote.save
-      redirect_to poll_vote_path @poll, @vote
+      redirect_to poll_vote_path @poll, @vote, new_record: new_record
     else
       render :new, status: :unprocessable_entity
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_174714) do
+ActiveRecord::Schema.define(version: 2021_05_01_211134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 2021_04_27_174714) do
     t.index ["slug"], name: "index_polls_on_slug"
   end
 
+  create_table "recommendations", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.string "user_identifier", null: false
+    t.bigint "poll_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["poll_id"], name: "index_recommendations_on_poll_id"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.string "user_identifier", null: false
     t.bigint "choice_id", null: false
@@ -109,5 +119,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_174714) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "polls"
   add_foreign_key "polls", "claimants"
+  add_foreign_key "recommendations", "polls"
   add_foreign_key "votes", "choices"
 end

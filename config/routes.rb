@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get 'recommendations/show'
+  get 'recommendations/new'
+
   resources :polls do
     resources :votes, only: %i[show new create]
     resources :choices
-    member do 
+    resources :recommendations, only: %i[show new create]
+    member do
       get "settings"
       get "private"
       get "success"

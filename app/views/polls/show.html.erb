@@ -1,12 +1,15 @@
 <%= link_to "back", polls_path %>
-<h1>Polls#show</h1>
-<p>Find me in app/views/polls/show.html.erb</p>
-<h2><%= @poll.title %></h2>
-
-  <ul>
-    <% @poll.choices.each do |choice| %>
-    <li><%= choice.title %></li>
-    <% end %>
-  </ul>
-
-<%= turbo_frame_tag "new_vote", src: new_poll_vote_path(@poll), target: "_top" %>
+<%= content_tag :article do %>
+  <h1><%= @poll.title %></h1>
+  <%= content_tag :p, @poll.content %>
+<% end %>
+<%= content_tag :aside do %>
+  <%= content_tag :section do %>
+    <h2>Cast a Vote</h2>
+    <%= turbo_frame_tag "new_vote", src: new_poll_vote_path(@poll), target: "_top" %>
+  <% end %>
+  <%= content_tag :section do %>
+    <h2>Make a Recommenation</h2>
+    <%= turbo_frame_tag :new_recommendation, src: new_poll_recommendation_path(@poll), target: "_top"  %>
+  <% end if @poll.allow_recommendations %>
+<% end %>
